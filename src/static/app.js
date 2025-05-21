@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (details.participants.length > 0) {
           participantsHTML = `
             <ul class="participants-list">
-              ${details.participants.map(email => `<li>${email}</li>`).join("")}
+              ${details.participants.map(email => `<li>${htmlEncode(email)}</li>`).join("")}
             </ul>
           `;
         } else {
@@ -100,3 +100,12 @@ document.addEventListener("DOMContentLoaded", () => {
   // Initialize app
   fetchActivities();
 });
+
+function htmlEncode(str) {
+  return String(str)
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&apos;");
+}
